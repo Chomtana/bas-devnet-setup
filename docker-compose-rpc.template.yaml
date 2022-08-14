@@ -1,0 +1,30 @@
+version: "3"
+services:
+  rpc:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+      - "--networkid=$CHAIN_ID"
+      - "--http"
+      - "--http.addr=0.0.0.0"
+      - "--http.api=eth,net,web3,debug,trace,txpool"
+      - "--http.port=8545"
+      - "--http.corsdomain=*"
+      - "--http.vhosts=*"
+      - "--ws"
+      - "--ws.addr=0.0.0.0"
+      - "--ws.api=eth,net,web3,debug,trace,txpool"
+      - "--ws.port=8546"
+      - "--ws.origins=*"
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./keystore:/datadir/keystore"
+      - "./genesis/password.txt:/datadir/password.txt"
+      - "./datadir/rpc:/datadir/geth"
+    restart: always

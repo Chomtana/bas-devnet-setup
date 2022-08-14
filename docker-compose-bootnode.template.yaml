@@ -1,0 +1,18 @@
+version: "3"
+services:
+
+  bootnode:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--networkid=$CHAIN_ID"
+      - "--nodekeyhex=633ab917d09441de38ae9251e79ced41df39a1c338842b826c18fb1773246e18"
+      - "--syncmode=full"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./datadir/bootnode:/datadir/geth"
+    ports:
+      - "30303:30303"
+    restart: always
